@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机生成小球</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .ball{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="handleClick()">随机生成小球</button>
+    <div id="box"></div>
+    <script>
+          let box = document.getElementById('box');
+          setInterval(()=>{
+            new globule().createGlob()
+          },500)
+        function handleClick(){
+          
+            new globule().createGlob()
+        }
+
+    //    使用类完成随机小球
+    class globule{
+        constructor(){
+            this.x = this.random(10,1500);
+            this.y = this.random(10,1000);
+            this.color =`#${this.ranCol()}`;
+        };
+        
+        createGlob(){
+            this.label = document.createElement('div');
+            this.label.className='ball';
+            this.label.style.marginLeft=`${this.x}px`;
+            this.label.style.marginTop=`${this.y}px`;
+            this.label.style.backgroundColor=this.color;
+            box.appendChild(this.label)
+        };
+        // 随机位置
+        random(min,max){
+           return Math.floor(Math.random()*(max-min)+min)
+        };
+        // 随机颜色
+        ranCol(){
+            // 1-9,abcdef
+            let arrs = ['a','b','c','d','e','f']
+            let colors = [];
+            for(let i=1;i<9;i++){
+                arrs.push(i + '')
+            }
+            let y = 0;
+            while(y<6){
+                let index = arrs[this.random(y,arrs.length)]
+                colors += index;
+              y++;
+            }
+           
+            return  colors;
+        }
+
+    }
+
+    </script>
+</body>
+</html>
